@@ -48,6 +48,9 @@
       <version>1.2</version>
       <type>jar</type>
       <url>http://jakarta.apache.org/lucene/</url>
+       <properties>
+	  <idegaweb.bundle.include>true</idegaweb.bundle.include>
+	 </properties>
     </dependency>
     <dependency>
       <groupId>bundles</groupId>
