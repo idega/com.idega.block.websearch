@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-search>
+    <!-- configure the indexes you wish to maintain here. 
+        The web search application can have several indexes. --> 
+    <index>
+        <!-- Name of the index. This can be anything you want. 
+            note that the demo is setup to use the name "main"
+        -->
+        <name>main</name>
+        
+        <!-- Location where the index will be stored. Make sure the full
+            directory path is already created and the application has permission
+            to write and read at the specified location.
+            You can specify a full path or a relative path based on the location
+            of this file "websearch.xml". To define a relative path, start with a
+            period ("."). To back out of the directory, use ("../").
+            Example:
+                full: z:/home/websearch/indexes  or  /home/websearch/indexes
+                reative: ./indexes  or  ../indexes  or  ../../indexes 
+        -->
+        <indexURI>../search/main</indexURI>
+
+        <!-- The seed URL that the crawler will start. Can have multiple seeds -->
+        <seed>http://www.nacka24.nacka.se/</seed>
+
+        <!-- The scope that the crawer will stay in. Put your servers domain to 
+            keep the crawler from indexing links outside of your site. 
+            Can have multiple scopes
+        -->
+        <scope>http://www.nacka24.nacka.se/</scope>
+        <scope>http://nacka24.nacka.se/</scope>
+    </index>
+
+</web-search>
+
+
