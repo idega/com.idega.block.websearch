@@ -22,14 +22,13 @@
         <indexURI>../search/main</indexURI>
 
         <!-- The seed URL that the crawler will start. Can have multiple seeds -->
-        <seed>http://www.nacka24.nacka.se/</seed>
+        <seed>http://www.noname.com/</seed>
 
         <!-- The scope that the crawer will stay in. Put your servers domain to 
             keep the crawler from indexing links outside of your site. 
             Can have multiple scopes
         -->
-        <scope>http://www.nacka24.nacka.se/</scope>
-        <scope>http://nacka24.nacka.se/</scope>
+        <scope>http://www.noname.com</scope>
     </index>
 
 </web-search>
