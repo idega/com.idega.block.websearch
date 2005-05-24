@@ -41,6 +41,11 @@
       <value>com.idega.block.websearch</value>
     </key>
     <key>
+      <name>ignore_parameters</name>
+      <type>java.lang.String</type>
+      <value>idega_poll_voter,ad_id,javascript</value>
+    </key>
+    <key>
       <name>iw_bundle_starter_class</name>
       <type>java.lang.String</type>
       <value>com.idega.block.websearch.business.WebSearchBundleStarter</value>
