@@ -5,17 +5,11 @@
   <pomVersion>3</pomVersion>
   <name>idegaWeb Websearch Block</name>
   <artifactId>com.idega.block.websearch</artifactId>
-  <currentVersion>1.0.1</currentVersion>
+    <currentVersion>1.0.1</currentVersion>
   <!--currentVersion>1.0-SNAPSHOT</currentVersion-->
-
   <inceptionYear>2000</inceptionYear>
   <shortDescription>Websearch</shortDescription>
   <versions>
-    <version>
-      <id>1.0.1</id>
-      <name>1.0.1</name>
-      <tag>WEBSEARCH_1_0_1</tag>
-    </version>
   </versions>
   <branches/>
   <developers>
@@ -52,7 +46,7 @@
     <dependency>
       <groupId>lucene</groupId>
       <artifactId>lucene</artifactId>
-      <version>1.4.1</version>
+      <version>1.2</version>
       <type>jar</type>
       <url>http://jakarta.apache.org/lucene/</url>
     </dependency>
@@ -61,7 +55,6 @@
       <artifactId>com.idega.core</artifactId>
       <!--HELPER--><version>3.0.5</version><!--HELPER-->
       <!--HELPERversion>SNAPSHOT</versionHELPER-->
-
       <type>jar</type>
       <url>http://www.idega.com/</url>
       <properties>
