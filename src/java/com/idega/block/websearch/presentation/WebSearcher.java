@@ -263,7 +263,7 @@ public class WebSearcher extends Block {
 		add(getSearchForm());
 		addBreak();
 
-		WebSearchHitIterator hits = (WebSearchHitIterator) getHitsFromSession(iwc,HITS_ITERATOR_SESSION_PARAM + queryString);
+		WebSearchHitIterator hits = getHitsFromSession(iwc,HITS_ITERATOR_SESSION_PARAM + queryString);
 
 		if (hits == null) {
 			try {

@@ -1,5 +1,5 @@
 /*
- * $Id: WebCrawlerSearchPlugin.java,v 1.2 2005/02/01 17:29:13 eiki Exp $
+ * $Id: WebCrawlerSearchPlugin.java,v 1.3 2006/01/11 15:04:36 laddi Exp $
  * Created on Jan 17, 2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -29,12 +29,12 @@ import com.idega.presentation.IWContext;
 
 /**
  * 
- *  Last modified: $Date: 2005/02/01 17:29:13 $ by $Author: eiki $
+ *  Last modified: $Date: 2006/01/11 15:04:36 $ by $Author: laddi $
  * This class implements the Searchplugin interface and can therefore be used in a Search block (com.idega.core.search)<br>
  * for searching the websites that are crawled and indexed by the websearch site crawler.
  * To use it simply register this class as a iw.searchable component in a bundle.
  * @author <a href="mailto:eiki@idega.com">Eirikur S. Hrafnsson</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class WebCrawlerSearchPlugin implements SearchPlugin {
 
@@ -112,7 +112,7 @@ public class WebCrawlerSearchPlugin implements SearchPlugin {
 				WebSearchHitIterator hits = searcher.search(queryString);
 				
 				while (hits.hasNext()) {
-					WebSearchHit hit = (WebSearchHit) hits.next();
+					WebSearchHit hit = hits.next();
 					
 					//String extraInfo = hit.getHREF() + " - " + hit.getContentType() + " - " + iwrb.getLocalizedString("rank", "rank") + ": " + hit.getRank();
 					String extraInfo = hit.getContentType();
