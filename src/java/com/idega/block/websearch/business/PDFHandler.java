@@ -23,16 +23,6 @@ public class PDFHandler implements ContentHandler {
     private InputStream in;
     
     /*
-     * Input cache.  This is much faster than calling down to a synchronized
-     * method of BufferedReader for each byte.  Measurements done 5/30/97
-     * show that there's no point in having a bigger buffer:  Increasing
-     * the buffer to 8192 had no measurable impact for a program discarding
-     * one character at a time (reading from an http URL to a local machine).
-     */
-    private byte buf[] = new byte[256];
-    private int pos;
-    private int len;
-    /*
     tracks position relative to the beginning of the
     document.
      */
@@ -68,8 +58,6 @@ public class PDFHandler implements ContentHandler {
     private static final char[] STREAM = "stream".toCharArray();
     private static final char[] SUBJECT = "/Subject".toCharArray();
     private static final char[] TITLE = "/Title".toCharArray();
-    private static final char[] NEWLINE = {'\n'};
-    private static final char[] RETURN = {'\r'};
     private static final char[] PARAMSTART = {'<','<'};
     
     private static final char[][] tokens = {
@@ -513,33 +501,6 @@ public class PDFHandler implements ContentHandler {
         return in.read();
         
         //return in.read();
-    /*
-    if (pos >= len) {
-     
-        // This loop allows us to ignore interrupts if the flag
-        // says so
-        for (;;) {
-            try {
-                len = in.read(buf);
-                System.out.println("next");
-                break;
-            } catch (InterruptedIOException ex) {
-                throw ex;
-            }
-        }
-        if (len <= 0) {
-            return -1; // eof
-        }
-        pos = 0;
-    }
-    ++currentPosition;
-    return buf[pos++];
-     */
-    }
-    private final char readCh() throws IOException {
-        
-        ++currentPosition;
-        return (char)in.read();
     /*
     if (pos >= len) {
      

@@ -21,7 +21,6 @@ import com.idega.block.websearch.data.WebSearchIndex;
  */
 public final class WebSearchManager {
     
-    private static WebSearchManager manager = new WebSearchManager();
     private static HashMap indexes;
     
     public WebSearchManager() {

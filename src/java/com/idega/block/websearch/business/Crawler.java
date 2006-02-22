@@ -10,7 +10,6 @@ import org.apache.lucene.analysis.StopAnalyzer;
 import org.apache.lucene.document.DateField;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import com.idega.block.websearch.data.WebSearchIndex;
 import com.idega.idegaweb.IWURL;
@@ -30,8 +29,6 @@ import com.idega.util.text.TextSoap;
 
 public final class Crawler {
     
-    private WebSearchIndex index;
-    private IndexReader reader;
     private IndexWriter writer;
     
     private java.util.Stack linkQueue;
@@ -42,7 +39,6 @@ public final class Crawler {
     private String seedURL[];
     private String scopeURL[];
     private String indexPath; // search index path
-    private boolean created; // if search index has been created
     private String cookie;
     private Collection ignoreParameters;
     // reporting
@@ -77,13 +73,10 @@ public final class Crawler {
     public Crawler(WebSearchIndex index, int reporting) {
         try {
             
-            this.index = index;
             this.seedURL = index.getSeed();
             this.scopeURL = index.getScope();
             this.indexPath = index.getIndexPath();
             this.rootURL = seedURL[0].substring(0, seedURL[0].indexOf("/", 8));
-            
-            this.created = false;
             
             this.reporting = reporting;
             
