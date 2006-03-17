@@ -1,4 +1,3 @@
-#Mon Oct 27 01:32:55 CET 2003
 back=
 done=
 index.this.site=
@@ -9,5 +8,6 @@ rank=
 results=
 search=Search
 searched.for=
+webcrawler_search.name=Pages
 websearch.untitled=
 you.have.to.index.first=
