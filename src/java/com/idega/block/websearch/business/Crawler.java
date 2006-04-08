@@ -90,7 +90,7 @@ public final class Crawler {
             
         } catch (Exception e) {
             e.printStackTrace();
-        };
+        }
     }
     
     public void addIgnoreParameters(Collection parameters) {
