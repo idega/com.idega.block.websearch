@@ -1,5 +1,5 @@
 /*
- * $Id: WebCrawlerSearchPlugin.java,v 1.3 2006/01/11 15:04:36 laddi Exp $
+ * $Id: WebCrawlerSearchPlugin.java,v 1.4 2006/04/09 11:38:51 laddi Exp $
  * Created on Jan 17, 2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -29,12 +29,12 @@ import com.idega.presentation.IWContext;
 
 /**
  * 
- *  Last modified: $Date: 2006/01/11 15:04:36 $ by $Author: laddi $
+ *  Last modified: $Date: 2006/04/09 11:38:51 $ by $Author: laddi $
  * This class implements the Searchplugin interface and can therefore be used in a Search block (com.idega.core.search)<br>
  * for searching the websites that are crawled and indexed by the websearch site crawler.
  * To use it simply register this class as a iw.searchable component in a bundle.
  * @author <a href="mailto:eiki@idega.com">Eirikur S. Hrafnsson</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class WebCrawlerSearchPlugin implements SearchPlugin {
 
@@ -92,7 +92,7 @@ public class WebCrawlerSearchPlugin implements SearchPlugin {
 	 * @see com.idega.core.search.business.SearchPlugin#createSearch(com.idega.core.search.business.SearchQuery)
 	 */
 	public Search createSearch(SearchQuery searchQuery) {
-		IWBundle bundle = iwma.getBundle(IW_BUNDLE_IDENTIFIER);
+		IWBundle bundle = this.iwma.getBundle(IW_BUNDLE_IDENTIFIER);
 		IWResourceBundle iwrb =  bundle.getResourceBundle(IWContext.getInstance());
 		String queryString = ((SimpleSearchQuery)searchQuery).getSimpleSearchQuery();
 		List results = new ArrayList();
@@ -165,7 +165,7 @@ public class WebCrawlerSearchPlugin implements SearchPlugin {
 	 * @see com.idega.core.search.business.SearchPlugin#getSearchName()
 	 */
 	public String getSearchName() {
-		IWBundle bundle = iwma.getBundle(IW_BUNDLE_IDENTIFIER);
+		IWBundle bundle = this.iwma.getBundle(IW_BUNDLE_IDENTIFIER);
 		return bundle.getResourceBundle(IWContext.getInstance()).getLocalizedString(SEARCH_NAME_LOCALIZABLE_KEY,"Pages");
 	}
 
@@ -175,7 +175,7 @@ public class WebCrawlerSearchPlugin implements SearchPlugin {
 	 * @see com.idega.core.search.business.SearchPlugin#getSearchDescription()
 	 */
 	public String getSearchDescription() {
-		IWBundle bundle = iwma.getBundle(IW_BUNDLE_IDENTIFIER);
+		IWBundle bundle = this.iwma.getBundle(IW_BUNDLE_IDENTIFIER);
 		return bundle.getResourceBundle(IWContext.getInstance()).getLocalizedString(SEARCH_DESCRIPTION_LOCALIZABLE_KEY,
 				"Searches whole websites as indexed the websearch block.");
 	}
