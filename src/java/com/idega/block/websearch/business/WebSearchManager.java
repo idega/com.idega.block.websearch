@@ -3,11 +3,9 @@ package com.idega.block.websearch.business;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
-
 import com.idega.block.websearch.data.WebSearchIndex;
 
 /**
@@ -21,21 +19,17 @@ import com.idega.block.websearch.data.WebSearchIndex;
  */
 public final class WebSearchManager {
     
-    private static HashMap indexes;
+    private static HashMap indexes = new HashMap();
     
     public WebSearchManager() {
-        
-        indexes = new HashMap();
     }
     
     public static WebSearchIndex getIndex(String key) {
-        
-        WebSearchIndex index = (WebSearchIndex)indexes.get(key);
-        if (index == null) {
-            System.out.println("no index: " + key);
-        }
-        return index;
-        
+    	WebSearchIndex index = (WebSearchIndex)indexes.get(key);
+    	if (index == null) {
+    		System.out.println("no index: " + key);
+    	}
+    	return index;
     }
     
     public static void addIndex(String name, String index,
