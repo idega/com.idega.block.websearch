@@ -6,8 +6,8 @@
   <name>idegaWeb Websearch Block</name>
   <artifactId>com.idega.block.websearch</artifactId>
   <!--currentVersion>1.0.1</currentVersion-->
-  <currentVersion>3.1.0</currentVersion>
 
+  <currentVersion>3.1.0</currentVersion>
   <inceptionYear>2000</inceptionYear>
   <shortDescription>Websearch</shortDescription>
   <versions>
@@ -15,6 +15,11 @@
       <id>1.0.1</id>
       <name>1.0.1</name>
       <tag>WEBSEARCH_1_0_1</tag>
+    </version>
+    <version>
+      <id>3.1.0</id>
+      <name>3.1.0</name>
+      <tag>WEBSEARCH_3_1_0</tag>
     </version>
   </versions>
   <branches/>
