@@ -5,6 +5,13 @@
   </properties>
   <body>
   
+  	<release version="3.1.2" date="2006-10-24">
+      <action dev="gimmi" type="add">
+      	new method added to SearchResult
+      </action>              
+	</release>
+  
+  
   	<release version="3.1.1" date="2006-07-28">
      <action dev="eiki" type="update">
     	Updated Lucene dependency to v. 1.9.1 because of a memory leak in 1.4.1.
