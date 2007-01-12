@@ -14,23 +14,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.idega.block.websearch.business.Crawler;
-import com.idega.block.websearch.business.WebSearchHitIterator;
-import com.idega.block.websearch.business.WebSearchManager;
-import com.idega.block.websearch.data.WebSearchHit;
-import com.idega.block.websearch.data.WebSearchIndex;
+import com.idega.idegaweb.*;
+import com.idega.presentation.*;
+import com.idega.presentation.text.*;
+import com.idega.presentation.ui.*;
+import com.idega.block.websearch.business.*;
+import com.idega.block.websearch.data.*;
 import com.idega.core.builder.data.ICPage;
-import com.idega.idegaweb.IWResourceBundle;
-import com.idega.presentation.Block;
-import com.idega.presentation.IWContext;
-import com.idega.presentation.Image;
-import com.idega.presentation.Table;
-import com.idega.presentation.text.Link;
-import com.idega.presentation.text.Text;
-import com.idega.presentation.ui.BackButton;
-import com.idega.presentation.ui.Form;
-import com.idega.presentation.ui.SubmitButton;
-import com.idega.presentation.ui.TextInput;
 
 public class WebSearcher extends Block {
 
@@ -41,12 +31,17 @@ public class WebSearcher extends Block {
 	private final static String HITS_PER_SET_PARAM = "iw_bl_ws_hi_p_s";
 	private final static String EXACT_PHRASE_PARAM = "iw_bl_ws_ex_ph";
 	private final static String PUBLISHED_FROM_PARAM = "iw_bl_ws_pb_fr";
+	private final static String DETAILED_PARAM = "iw_bl_ws_de";
 	private final static String DIRECTION_PARAM = "iw_bl_ws_set_dir";
 
 	private final static String HITS_ITERATOR_SESSION_PARAM = "iw_bl_ws_hitsiterator";
 	private final static String HITS_MAP_SESSION_PARAM = "iw_bl_ws_hitsmap";
 
+	private final static String INDEX_NO_REPORT = "0";
+	private final static String INDEX_MINOR_REPORT = "1";
 	private final static String INDEX_NORMAL_REPORT = "2";
+	private final static String INDEX_DETAILED_REPORT = "3";
+
 	private final static String DIRECTION_NEXT = "next";
 	private final static String DIRECTION_PREV = "prev";
 
@@ -56,6 +51,7 @@ public class WebSearcher extends Block {
 	private boolean showResults = false;
 	private boolean crawl = false;
 	private boolean exact = false;
+	private boolean detailed = false;
 	private boolean canEdit = false;
 	private boolean showOnlySearch = false;
 	private boolean showButtonsAsLinks = false;
@@ -76,6 +72,7 @@ public class WebSearcher extends Block {
 	private int publishedFromDays = 0;
 	private int report = 0;
 
+	private IWBundle iwb = null;
 	private IWResourceBundle iwrb = null;
 	
 	private static final int VERTICAL_LAYOUT = 1;
@@ -103,6 +100,7 @@ public class WebSearcher extends Block {
 			this.showResults = true;
 			this.queryString = iwc.getParameter(SEARCH_PARAM);
 			this.exact = iwc.isParameterSet(EXACT_PHRASE_PARAM);
+			this.detailed = iwc.isParameterSet(DETAILED_PARAM);
 			String fromDays = iwc.getParameter(PUBLISHED_FROM_PARAM);
 			if (fromDays != null) {
 				this.publishedFromDays = Integer.parseInt(fromDays);
@@ -133,6 +131,7 @@ public class WebSearcher extends Block {
 	 * @see com.idega.presentation.PresentationObject#main(IWContext)
 	 */
 	public void main(IWContext iwc) throws Exception {
+		this.iwb = getBundle(iwc);
 		this.iwrb = getResourceBundle(iwc);
 
 		parseAction(iwc);

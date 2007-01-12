@@ -10,6 +10,7 @@ import org.apache.lucene.analysis.StopAnalyzer;
 import org.apache.lucene.document.DateField;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import com.idega.block.websearch.data.WebSearchIndex;
 import com.idega.idegaweb.IWURL;
@@ -29,6 +30,8 @@ import com.idega.util.text.TextSoap;
 
 public final class Crawler {
     
+    private WebSearchIndex index;
+    private IndexReader reader;
     private IndexWriter writer;
     
     private java.util.Stack linkQueue;
@@ -39,6 +42,7 @@ public final class Crawler {
     private String seedURL[];
     private String scopeURL[];
     private String indexPath; // search index path
+    private boolean created; // if search index has been created
     private String cookie;
     private Collection ignoreParameters;
     // reporting
@@ -73,10 +77,13 @@ public final class Crawler {
     public Crawler(WebSearchIndex index, int reporting) {
         try {
             
+            this.index = index;
             this.seedURL = index.getSeed();
             this.scopeURL = index.getScope();
             this.indexPath = index.getIndexPath();
             this.rootURL = this.seedURL[0].substring(0, this.seedURL[0].indexOf("/", 8));
+            
+            this.created = false;
             
             this.reporting = reporting;
             
@@ -90,7 +97,7 @@ public final class Crawler {
             
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        };
     }
     
     public void addIgnoreParameters(Collection parameters) {
@@ -101,8 +108,8 @@ public final class Crawler {
         try {
             
             if (this.reporting > 0) {
-							System.out.println("Websearch: START CRAWLING");
-						}
+				System.out.println("Websearch: START CRAWLING");
+			}
  
             File file =  new File(this.indexPath);
             
@@ -113,10 +120,10 @@ public final class Crawler {
              	FileUtil.createFileAndFolder(this.indexPath,"segments");
              
                 if (this.reporting > 0) {
-									System.out.println("create new index");
-									//IndexWriter writer = new IndexWriter(indexPath, new StopAnalyzer(), true);
-									//writer.close();
-								}
+					System.out.println("create new index");
+					//IndexWriter writer = new IndexWriter(indexPath, new StopAnalyzer(), true);
+					//writer.close();
+				}
             }
             /*else {
                 // delete all files for now and build new index.
@@ -149,8 +156,8 @@ public final class Crawler {
             String url;
             //System.out.println(linkQueue.toString());
             if(this.linkQueue==null) {
-							System.out.println("WebSearch crawler: linkQueue is null! check that a trailing / is in the seed url");
-						}
+				System.out.println("WebSearch crawler: linkQueue is null! check that a trailing / is in the seed url");
+			}
             
             while (this.linkQueue!=null && !this.linkQueue.empty()) {
                 url = (String)this.linkQueue.pop();
@@ -170,8 +177,8 @@ public final class Crawler {
 
                 if (result.equals("good")) {
                     if (this.reporting > 1) {
-											System.out.print(" status: " + result);
-										}
+						System.out.print(" status: " + result);
+					}
                     if (this.reporting > 2) {
                         System.out.println(" lastModified : " + this.lastModified);
                         System.out.println(" contentType : " + this.contentType);
@@ -195,8 +202,8 @@ public final class Crawler {
                         System.out.println("SCANNED : " + url);
                     }
                     if (this.reporting > 0) {
-											System.out.println(" *status: " + result);
-										}
+						System.out.println(" *status: " + result);
+					}
                 }
                 
             }
@@ -235,8 +242,8 @@ public final class Crawler {
         }
         
         if (this.handler.getRobotIndex()) {
-					indexLucene();
-				}
+			indexLucene();
+		}
         
     }
     
@@ -316,7 +323,7 @@ public final class Crawler {
             	//clean more!
             	contents = TextSoap.findAndCut(contents,">");
             	contents = TextSoap.findAndCut(contents,"<");
-            	contents = TextSoap.findAndCut(contents,"•?");
+            	contents = TextSoap.findAndCut(contents,"ï¿½?");
             	
             	 mydoc.add(Field.Text("contents", contents));
             }
@@ -405,8 +412,8 @@ public final class Crawler {
         } else if (urlLowCase.startsWith("../")) {
             int back = 1;
             while (urlLowCase.indexOf("../", back*3) != -1) {
-							back++;
-						}
+				back++;
+			}
             int pos = this.currentURLPath.length();
             int count = back;
             while (count-- > 0) {
@@ -461,8 +468,8 @@ public final class Crawler {
             if (httpCon.getHeaderField("Set-Cookie") != null) {
                 this.cookie = stripCookie(httpCon.getHeaderField("Set-Cookie"));
                 if (this.reporting > 1) {
-									System.out.print(" got cookie : " + this.cookie);
-								}
+					System.out.print(" got cookie : " + this.cookie);
+				}
             }
             
             if (httpCon.getResponseCode() == HttpURLConnection.HTTP_OK) {

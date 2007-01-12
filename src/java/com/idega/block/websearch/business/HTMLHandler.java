@@ -139,8 +139,8 @@ public final class HTMLHandler extends ParserCallback implements ContentHandler{
         String href = new String();
         href = (String) attribs.getAttribute(HTML.Attribute.HREF);
         if (href == null) {
-					return;
-				}
+			return;
+		}
         this.links.add(href);
         this.state = HREF;
     }
@@ -149,8 +149,8 @@ public final class HTMLHandler extends ParserCallback implements ContentHandler{
      */
     public void handleEndTag(Tag tag, int pos) {
         if (this.state == NONE) {
-					return;
-				}
+			return;
+		}
         // In order of precedence == > && > ||
         if (this.state == TITLE && tag.equals(HTML.Tag.TITLE)) {
             this.state = NONE;
@@ -175,8 +175,8 @@ public final class HTMLHandler extends ParserCallback implements ContentHandler{
         name = (String) attribs.getAttribute(HTML.Attribute.NAME);
         content = (String) attribs.getAttribute(HTML.Attribute.CONTENT);
         if (name == null || content == null) {
-					return;
-				}
+			return;
+		}
         name = name.toUpperCase();
         if (name.equals("DESCRIPTION")) {
             this.description = content;
@@ -207,11 +207,11 @@ public final class HTMLHandler extends ParserCallback implements ContentHandler{
         if (name.equals("ROBOTS")) {
             
             if (content.indexOf("noindex") != -1) {
-							this.robotIndex = false;
-						}
+				this.robotIndex = false;
+			}
             if (content.indexOf("nofollow") != -1) {
-							this.robotFollow = false;
-						}
+				this.robotFollow = false;
+			}
             
             this.author = content;
             return;

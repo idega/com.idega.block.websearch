@@ -23,6 +23,16 @@ public class PDFHandler implements ContentHandler {
     private InputStream in;
     
     /*
+     * Input cache.  This is much faster than calling down to a synchronized
+     * method of BufferedReader for each byte.  Measurements done 5/30/97
+     * show that there's no point in having a bigger buffer:  Increasing
+     * the buffer to 8192 had no measurable impact for a program discarding
+     * one character at a time (reading from an http URL to a local machine).
+     */
+    private byte buf[] = new byte[256];
+    private int pos;
+    private int len;
+    /*
     tracks position relative to the beginning of the
     document.
      */
@@ -58,6 +68,8 @@ public class PDFHandler implements ContentHandler {
     private static final char[] STREAM = "stream".toCharArray();
     private static final char[] SUBJECT = "/Subject".toCharArray();
     private static final char[] TITLE = "/Title".toCharArray();
+    private static final char[] NEWLINE = {'\n'};
+    private static final char[] RETURN = {'\r'};
     private static final char[] PARAMSTART = {'<','<'};
     
     private static final char[][] tokens = {
@@ -98,8 +110,8 @@ public class PDFHandler implements ContentHandler {
         while (true) {
             int b = read();
             if (b == -1 ) {
-							break;
-						}
+				break;
+			}
             char ch = (char)b;
             
             
@@ -132,8 +144,8 @@ public class PDFHandler implements ContentHandler {
                 }
             }
             if (matchCount <= 0 ) {
-							break;
-						}
+				break;
+			}
             
             charPosition++;
             
@@ -250,11 +262,11 @@ public class PDFHandler implements ContentHandler {
         while (true) {
             int b = read();
             if (b == -1 ) {
-							return false;
-						}
+				return false;
+			}
             if (isNewLineChar((char)b)) {
-							return true;
-						}
+				return true;
+			}
         }
         
     }
@@ -355,22 +367,22 @@ public class PDFHandler implements ContentHandler {
         while (true) {
             int b = read();
             if (b == -1 ) {
-							break;
-						}
+				break;
+			}
             char ch = (char)b;
             if (ch == '(') {
-							break;
-						}
+				break;
+			}
         }
         while (true) {
             int b = read();
             if (b == -1 ) {
-							break;
-						}
+				break;
+			}
             char ch = (char)b;
             if (ch == ')') {
-							break;
-						}
+				break;
+			}
             temp.write(b);
         }
         
@@ -400,8 +412,8 @@ public class PDFHandler implements ContentHandler {
                 temp.write(b);
             }
             if (end) {
-							break;
-						}
+				break;
+			}
             b = read();
         }
         String params = new String(temp.toByteArray());
@@ -411,11 +423,11 @@ public class PDFHandler implements ContentHandler {
         && params.indexOf("0 R") != -1
         && params.indexOf("/Length ") != -1)  {
             if (params.indexOf("/FlateDecode") != -1) {
-							this.compression = FLATE;
-						}
+				this.compression = FLATE;
+			}
             if (params.indexOf("/LZWDecode") != -1) {
-							this.compression = LZW;
-						}
+				this.compression = LZW;
+			}
             this.parseNextStream = true;
             //System.out.println();
             //System.out.println(params);
@@ -452,8 +464,8 @@ public class PDFHandler implements ContentHandler {
                     }
                 }
                 if (!notMatch) {
-									endstream = true;
-								}
+					endstream = true;
+				}
             } else {
                 // not new line append byte
                 temp.write(b);
@@ -461,8 +473,8 @@ public class PDFHandler implements ContentHandler {
                 ch = (char)b;
             }
             if (endstream) {
-							break; // endstream found
-						}
+				break; // endstream found
+			}
         }
         
         // Uncompress if flateDecode is used
@@ -489,22 +501,22 @@ public class PDFHandler implements ContentHandler {
         while (true) {
             b = bis.read();
             if (b == -1 ) {
-							break;
-						}
+				break;
+			}
             if ((char)b == '(') {
                 while (true) {
                     b = bis.read();
                     if (b == -1 ) {end = true; break;}
                     // look for end ')'
                     if ((char)b == ')') {
-											break;
-										}
+						break;
+					}
                     tmp.write(b);
                 }
             }
             if (end) {
-							break;
-						}
+				break;
+			}
         }
         
         // reset flateDecode flag
@@ -533,6 +545,33 @@ public class PDFHandler implements ContentHandler {
         return this.in.read();
         
         //return in.read();
+    /*
+    if (pos >= len) {
+     
+        // This loop allows us to ignore interrupts if the flag
+        // says so
+        for (;;) {
+            try {
+                len = in.read(buf);
+                System.out.println("next");
+                break;
+            } catch (InterruptedIOException ex) {
+                throw ex;
+            }
+        }
+        if (len <= 0) {
+            return -1; // eof
+        }
+        pos = 0;
+    }
+    ++currentPosition;
+    return buf[pos++];
+     */
+    }
+    private final char readCh() throws IOException {
+        
+        ++this.currentPosition;
+        return (char)this.in.read();
     /*
     if (pos >= len) {
      

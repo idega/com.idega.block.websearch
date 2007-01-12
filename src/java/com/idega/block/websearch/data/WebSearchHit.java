@@ -117,8 +117,8 @@ public final class WebSearchHit {
 	        while ( tokens.hasMoreTokens() ){
 	        	String word = tokens.nextToken();
 	        	if( word.equals("AND") || word.equals("OR") || word.equals("NOT") ) {
-							continue;
-						}
+					continue;
+				}
 	        	
 	        	int middle = contents.indexOf(word);
 	        	int wordLength = word.length();
@@ -150,9 +150,9 @@ public final class WebSearchHit {
 	        		
 	        		return temp;	        		   		
 	        	}
-						else {
-							continue;
-						}
+				else {
+					continue;
+				}
 	        }
 	        
 	        return contents.substring( 0 , Math.min(maxLength,length)) ;

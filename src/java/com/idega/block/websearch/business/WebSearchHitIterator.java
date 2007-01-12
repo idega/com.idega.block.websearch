@@ -1,6 +1,7 @@
 package com.idega.block.websearch.business;
 
 
+import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Hits;
 
 import com.idega.block.websearch.data.WebSearchHit;
@@ -24,6 +25,8 @@ public final class WebSearchHitIterator {
     private int position; // current posistion
     private int hitsPerSet;
     private int setLimit;
+    private Document document; // current document
+    
     /**
      * Insert the method's description here.
      * Creation date: (2/16/2001 2:06:31 PM)
