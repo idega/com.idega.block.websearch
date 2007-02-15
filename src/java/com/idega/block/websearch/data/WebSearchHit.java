@@ -1,9 +1,11 @@
 package com.idega.block.websearch.data;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 
-import org.apache.lucene.document.DateField;
+//import org.apache.lucene.document.DateField;
+import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 
 
@@ -67,16 +69,28 @@ public final class WebSearchHit {
     }
     public long getPublished() {
         
-        return DateField.stringToTime(this.document.get("published"));
+        //return DateField.stringToTime(this.document.get("published"));
+        try {
+			return DateTools.stringToTime(this.document.get("published"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
         
     }
     public String getPublishedFormated() {
         
         SimpleDateFormat dateFormatter =
         new SimpleDateFormat("yyyy.MM.dd hh:mm:ss z");
-        return dateFormatter.format(
-        DateField.stringToDate(this.document.get("published")));
-        
+        //return dateFormatter.format(DateField.stringToDate(this.document.get("published")));
+        try {
+			return dateFormatter.format(DateTools.stringToDate(this.document.get("published")));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
     }
     public int getRank() {
         return this.rank;

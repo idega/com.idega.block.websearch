@@ -3,12 +3,16 @@ package com.idega.block.websearch.business;
 import java.io.IOException;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.StopAnalyzer;
+import org.apache.lucene.document.DateTools;
+import org.apache.lucene.document.DateTools.Resolution;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.DateFilter;
+//import org.apache.lucene.search.DateFilter;
+import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.RangeFilter;
 import org.apache.lucene.search.Searcher;
 import com.idega.block.websearch.data.IndexReaderCache;
 import com.idega.block.websearch.data.WebSearchIndex;
@@ -39,7 +43,8 @@ public final class WebSearcher {
 
 	private long to;
 
-	private DateFilter dateFilter;
+	//private DateFilter dateFilter;
+	private RangeFilter dateFilter;
 
 	private static final String[] fields = { "title", "description", "keyword", "contents" };
 
@@ -72,25 +77,34 @@ public final class WebSearcher {
 		if (this.phraseSearch) {
 			input = "\"" + input + "\"";
 		}
+		
 		BooleanQuery query = new BooleanQuery();
 		BooleanQuery fQuery = new BooleanQuery();
 		for (int i = 0; i < fields.length; i++) {
-			fQuery.add(QueryParser.parse(input, fields[i], analyzer), false, false);
+			//fQuery.add(QueryParser.parse(input, fields[i], analyzer), false, false);
+			QueryParser parser = new QueryParser(fields[i],analyzer);
+			fQuery.add(parser.parse(input),BooleanClause.Occur.SHOULD);
 		}
-		query.add(fQuery, true, false);
+		//query.add(fQuery, true, false);
+		query.add(fQuery,BooleanClause.Occur.MUST);
 		if (this.categories != null) {
-			query.add(QueryParser.parse(this.categories, "categories", analyzer), true, false);
+			//query.add(QueryParser.parse(this.categories, "categories", analyzer), true, false);
+			QueryParser categoryParser = new QueryParser("categories",analyzer);
+			query.add(categoryParser.parse(this.categories),BooleanClause.Occur.MUST);
 		}
 		if (this.from != 0) {
 			if (this.to != 0) {
-				this.dateFilter = new DateFilter("published", this.from, this.to);
+				//this.dateFilter = new DateFilter("published", this.from, this.to);
+				this.dateFilter = new RangeFilter("published", DateTools.timeToString(this.from,Resolution.MILLISECOND), DateTools.timeToString(this.to,Resolution.MILLISECOND),true,true);
 			}
 			else {
-				this.dateFilter = DateFilter.After("published", this.from);
+				//this.dateFilter = DateFilter.After("published", this.from);
+				this.dateFilter = RangeFilter.More("published", DateTools.timeToString(this.from,Resolution.MILLISECOND));
 			}
 		}
 		else if (this.to != 0) {
-			this.dateFilter = DateFilter.Before("published", this.to);
+			//this.dateFilter = DateFilter.Before("published", this.to);
+			this.dateFilter = RangeFilter.Less("published", DateTools.timeToString(this.to ,Resolution.MILLISECOND));
 		}
 		//System.out.println("Searching for: " + query.toString());
 		if (this.dateFilter == null) {

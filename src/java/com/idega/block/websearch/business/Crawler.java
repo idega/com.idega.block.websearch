@@ -7,7 +7,8 @@ import java.net.HttpURLConnection;
 import java.util.Collection;
 import java.util.Iterator;
 import org.apache.lucene.analysis.StopAnalyzer;
-import org.apache.lucene.document.DateField;
+//import org.apache.lucene.document.DateField;
+import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexWriter;
@@ -305,10 +306,21 @@ public final class Crawler {
             //writer = new IndexWriter(this.indexPath, new StopAnalyzer(), false);
             //}
             Document mydoc = new Document();
-            mydoc.add(new Field("uid", this.currentURL.toString().toLowerCase(), false, true, false));
-            mydoc.add(Field.Text("url", this.currentURL.toString()));
-            mydoc.add(Field.Text("contentType", this.contentType));
-            mydoc.add(Field.Keyword("lastModified",DateField.timeToString(this.lastModified)));
+
+            // Changes in API for 2.0.0:
+            
+            // mydoc.add(new Field("uid", this.currentURL.toString().toLowerCase(), false, true, false));
+            mydoc.add(new Field("uid", this.currentURL.toString().toLowerCase(), Field.Store.NO,Field.Index.UN_TOKENIZED));
+            
+            //mydoc.add(Field.Text("url", this.currentURL.toString()));
+            mydoc.add(new Field("url", this.currentURL.toString(),Field.Store.YES, Field.Index.TOKENIZED));
+            
+            //mydoc.add(Field.Text("contentType", this.contentType));
+            mydoc.add(new Field("contentType", this.contentType,Field.Store.YES, Field.Index.TOKENIZED));
+            
+            //mydoc.add(Field.Keyword("lastModified",DateField.timeToString(this.lastModified)));
+            mydoc.add(new Field("lastModified",DateTools.timeToString(this.lastModified,DateTools.Resolution.MILLISECOND),Field.Store.YES,Field.Index.UN_TOKENIZED));
+            
             String contents = this.handler.getContents();
                       
             
@@ -318,34 +330,43 @@ public final class Crawler {
             	contents = TextSoap.findAndCut(contents,"<");
             	contents = TextSoap.findAndCut(contents,"•?");
             	
-            	 mydoc.add(Field.Text("contents", contents));
+            	//mydoc.add(Field.Text("contents", contents));
+            	mydoc.add(new Field("contents", contents,Field.Store.YES, Field.Index.TOKENIZED));
             }
             
             if (this.handler.getTitle() != null) {
-                mydoc.add(Field.Text("title", this.handler.getTitle()));
+                //mydoc.add(Field.Text("title", this.handler.getTitle()));
+            	mydoc.add(new Field("title",this.handler.getTitle() ,Field.Store.YES, Field.Index.TOKENIZED));
             }
             if (this.handler.getKeywords() != null) {
-                mydoc.add(Field.Text("keywords", this.handler.getKeywords()));
+                //mydoc.add(Field.Text("keywords", this.handler.getKeywords()));
+            	mydoc.add(new Field("keywords",this.handler.getKeywords() ,Field.Store.YES, Field.Index.TOKENIZED));
             }
             if (this.handler.getDescription() != null) {
-                mydoc.add(Field.Text("description", this.handler.getDescription()));
+                //mydoc.add(Field.Text("description", this.handler.getDescription()));
+            	mydoc.add(new Field("description", this.handler.getDescription(),Field.Store.YES, Field.Index.TOKENIZED));
             }
             if (this.handler.getCategories() != null) {
-                mydoc.add(Field.Text("categories", this.handler.getCategories()));
+               // mydoc.add(Field.Text("categories", this.handler.getCategories()));
+            	mydoc.add(new Field("categories", this.handler.getCategories(),Field.Store.YES, Field.Index.TOKENIZED));
             }
             if (this.handler.getPublished() != -1) {
                 // use meta tag
-                mydoc.add(Field.Keyword("published",
-                DateField.timeToString(this.handler.getPublished())));
+                //mydoc.add(Field.Keyword("published",
+            	//DateField.timeToString(this.handler.getPublished())));
+            	mydoc.add(new Field("published",DateTools.timeToString(this.handler.getPublished(),DateTools.Resolution.MILLISECOND),Field.Store.YES,Field.Index.UN_TOKENIZED));
             } else {
                 // use lastmodified from http header.
-                mydoc.add(Field.Keyword("published",
-                DateField.timeToString(this.lastModified)));
+                //mydoc.add(Field.Keyword("published",
+                //DateField.timeToString(this.lastModified)));
+            	mydoc.add(new Field("published",DateTools.timeToString(this.lastModified,DateTools.Resolution.MILLISECOND),Field.Store.YES,Field.Index.UN_TOKENIZED));
             }
             if (this.handler.getPublished() != -1) {
                 // use meta tag
-                mydoc.add(Field.Keyword("published",
-                DateField.timeToString(this.handler.getPublished())));
+                //mydoc.add(Field.Keyword("published",
+                //DateField.timeToString(this.handler.getPublished())));
+            	mydoc.add(new Field("published",DateTools.timeToString(this.handler.getPublished(),DateTools.Resolution.MILLISECOND),Field.Store.YES,Field.Index.UN_TOKENIZED));
+
             } else {
                 // use lastmodified from http header.
                 
@@ -356,7 +377,8 @@ public final class Crawler {
                 int pos = href.indexOf("$link");
                 href = href.substring(0, pos) + this.currentURL.toString()
                 + href.substring(pos + 5, href.length());
-                mydoc.add(Field.UnIndexed("href", href));
+                //mydoc.add(Field.UnIndexed("href", href));
+                mydoc.add(new Field("href", href,Field.Store.YES,Field.Index.NO));
             }
             this.writer.addDocument(mydoc);
                     
