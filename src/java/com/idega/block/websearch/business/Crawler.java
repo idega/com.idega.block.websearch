@@ -303,7 +303,7 @@ public final class Crawler {
 				// clean more!
 				contents = TextSoap.findAndCut(contents, ">");
 				contents = TextSoap.findAndCut(contents, "<");
-				contents = TextSoap.findAndCut(contents, "•?");
+				contents = TextSoap.findAndCut(contents, "?");
 
 				// mydoc.add(Field.Text("contents", contents));
 				mydoc.add(new Field("contents", contents, Field.Store.YES, Field.Index.TOKENIZED));
