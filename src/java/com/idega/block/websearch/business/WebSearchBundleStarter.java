@@ -32,7 +32,7 @@ public class WebSearchBundleStarter implements IWBundleStartable, ActionListener
 
 	public static Collection ignoreParameters;
 
-	private final static String IW_BUNDLE_IDENTIFIER = "com.idega.block.websearch";
+	public final static String IW_BUNDLE_IDENTIFIER = "com.idega.block.websearch";
 
 	/*
 	 * private static final String xml1 = " <?xml version=\"1.0\"
@@ -61,13 +61,16 @@ public class WebSearchBundleStarter implements IWBundleStartable, ActionListener
 	}
 
 	public void start(IWBundle bundle) {
-		String xmlFile = bundle.getResourcesRealPath() + FileUtil.getFileSeparator() + "websearch.xml";
+		
+//		String xmlFile = 
+//			"/Users/civilis/dev/workspace/eplatform-4/com.idega.block.websearch/resources/websearch.xml";
+//			//bundle.getResourcesRealPath() + FileUtil.getFileSeparator() + "websearch.xml";
+//
+//		System.out.println("WebSearch: Starting up...");
+//		System.out.println("WebSearch: loading configuration from : " + xmlFile);
+//		System.out.println("WebSearch: REMEMBER to edit the configuration file before indexing for the first time!");
 
-		System.out.println("WebSearch: Starting up...");
-		System.out.println("WebSearch: loading configuration from : " + xmlFile);
-		System.out.println("WebSearch: REMEMBER to edit the configuration file before indexing for the first time!");
-
-		WebSearchManager.parseConfigXML(xmlFile);
+		//WebSearchManager.getInstance().parseConfigXML(null);
 		
 		String parameters = bundle.getProperty(IGNORE_PARAMETERS, "");
 		if (parameters != null && parameters.length() > 0) {
@@ -93,7 +96,7 @@ public class WebSearchBundleStarter implements IWBundleStartable, ActionListener
 	public void actionPerformed(ActionEvent event) {
 		//THIS ASSUMES THERE IS ONLY ONE INDEX AND SCOPE
 		if (event.getActionCommand().equalsIgnoreCase(IW_WEB_SEARCHER)) {
-			WebSearchIndex index = WebSearchManager.getIndex("main");
+			WebSearchIndex index = WebSearchManager.getInstance().getIndex("main");
 			if (index != null) {
 				if (!index.getScope()[0].startsWith("http://localhost")) {//if true it needs to be indexed manually
 					Crawler crawler = new Crawler(index, 2);
