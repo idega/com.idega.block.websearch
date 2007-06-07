@@ -64,6 +64,12 @@
       <version>4.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>
+    <dependency>
+      <groupId>com.idega.block.platform</groupId>
+      <artifactId>com.idega.slide</artifactId>
+      <version>4.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>
 	<dependency>
       <groupId>lucene</groupId>
       <artifactId>lucene-core</artifactId>
