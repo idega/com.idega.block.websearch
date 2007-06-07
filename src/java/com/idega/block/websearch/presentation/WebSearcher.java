@@ -133,6 +133,7 @@ public class WebSearcher extends Block {
 	 * @see com.idega.presentation.PresentationObject#main(IWContext)
 	 */
 	public void main(IWContext iwc) throws Exception {
+		
 		this.iwrb = getResourceBundle(iwc);
 
 		parseAction(iwc);
@@ -154,7 +155,7 @@ public class WebSearcher extends Block {
 		add(this.iwrb.getLocalizedString("indexing", "Indexing..."));
 		addBreak();
 
-		this.index = WebSearchManager.getIndex("main"); //this should not be hard coded
+		this.index = WebSearchManager.getInstance().getIndex("main"); //this should not be hard coded
 
 		if (this.report > 0) {
 			this.crawler = new Crawler(this.index, this.report); //change so that crawler return an arraylist and then print that or something
@@ -271,7 +272,7 @@ public class WebSearcher extends Block {
 
 		if (hits == null) {
 			try {
-				com.idega.block.websearch.business.WebSearcher searcher = new com.idega.block.websearch.business.WebSearcher(WebSearchManager.getIndex("main"));
+				com.idega.block.websearch.business.WebSearcher searcher = new com.idega.block.websearch.business.WebSearcher(WebSearchManager.getInstance().getIndex("main"));
 				//hits per page
 				searcher.setHitsPerSet(this.hitsPerSet);
 				// exact phrase
