@@ -19,16 +19,16 @@
                 full: z:/home/websearch/indexes  or  /home/websearch/indexes
                 reative: ./indexes  or  ../indexes  or  ../../indexes 
         -->
-        <indexURI>../search/main</indexURI>
+        <indexURI>./websearch/main</indexURI>
 
         <!-- The seed URL that the crawler will start. Can have multiple seeds -->
-        <seed>http://localhost/</seed>
+        <seed>http://localhost:8080/</seed>
 
         <!-- The scope that the crawer will stay in. Put your servers domain to 
             keep the crawler from indexing links outside of your site. 
             Can have multiple scopes
         -->
-        <scope>http://localhost</scope>
+        <scope>http://localhost:8080</scope>
     </index>
 
 </web-search>
