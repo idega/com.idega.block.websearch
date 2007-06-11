@@ -131,7 +131,7 @@ public final class WebSearchHit {
 		if (contents != null) {
 			StringTokenizer tokens = new StringTokenizer(queryString);
 			int length = contents.length();
-			int maxLength = 200;
+			int maxLength = 100;
 
 			while (tokens.hasMoreTokens()) {
 				String word = tokens.nextToken();
