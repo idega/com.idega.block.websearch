@@ -33,3 +33,37 @@
 	border-style: solid;
 	padding: 2px;
 }
+
+.elightResult {
+	font-family: Arial,Helvetica,Sans-serif; 
+	font-size: 10pt;
+	padding-bottom: 5px; 
+	padding-top: 5px;
+	
+	border-bottom: 1px solid grey;
+}
+
+.elightContents {
+	background-color: #F7EFEF;
+}
+.elightTitle, .elightTitle a {
+	font-size: 10.5pt;
+	font-weight: bolder;
+	text-decoration: underline;
+	color: black;
+}
+
+.elightTitle a:visited {
+	
+	color: #DDA8A9;
+}
+
+.elightUrl {
+	color: green;
+}
+
+.elightMessage {
+	
+	padding: 10px;
+	color: #AB1908;
+}
