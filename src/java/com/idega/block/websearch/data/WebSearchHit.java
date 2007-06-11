@@ -124,6 +124,9 @@ public final class WebSearchHit {
 	 */
 	public String getContents(String queryString) {
 		String contents = this.document.get("contents");
+		
+//		TODO: remove xml related garbage: e.g. xml version="1.0" encoding="MacCentralEurope"
+//		either here, or when parsing html/xml
 
 		if (contents != null) {
 			StringTokenizer tokens = new StringTokenizer(queryString);
