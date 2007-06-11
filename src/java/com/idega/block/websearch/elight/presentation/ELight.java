@@ -84,10 +84,6 @@ public class ELight extends IWBaseComponent {
 		getFacets().put(elight_id, elight_div);
 		
 		addClientResources(context);
-		
-		HtmlOutputText text = (HtmlOutputText) application.createComponent(HtmlOutputText.COMPONENT_TYPE);
-		text.setValue("some great text");
-		results_division.add(text);
 	}
 	
 	@Override
