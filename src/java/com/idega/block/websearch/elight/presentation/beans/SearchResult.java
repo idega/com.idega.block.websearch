@@ -1,5 +1,7 @@
 package com.idega.block.websearch.elight.presentation.beans;
 
+import org.w3c.dom.Document;
+
 /**
  * 
  * 
@@ -11,7 +13,7 @@ public class SearchResult {
 	
 	private String url;
 	private String title;
-	private String contents;
+	private Document contents;
 	private String extraInfo;
 	private String message;
 	
@@ -21,10 +23,10 @@ public class SearchResult {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public String getContents() {
+	public Document getContents() {
 		return contents;
 	}
-	public void setContents(String contents) {
+	public void setContents(Document contents) {
 		this.contents = contents;
 	}
 	public String getExtraInfo() {
