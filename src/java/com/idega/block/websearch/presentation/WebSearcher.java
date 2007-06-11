@@ -267,9 +267,9 @@ public class WebSearcher extends Block {
 	private void search(IWContext iwc) {
 		add(getSearchForm());
 		addBreak();
-
+		
 		WebSearchHitIterator hits = getHitsFromSession(iwc,HITS_ITERATOR_SESSION_PARAM + this.queryString);
-
+		
 		if (hits == null) {
 			try {
 				com.idega.block.websearch.business.WebSearcher searcher = new com.idega.block.websearch.business.WebSearcher(WebSearchManager.getInstance().getIndex("main"));
@@ -295,6 +295,8 @@ public class WebSearcher extends Block {
 			
 		}
 		
+		hits.resetPosition();
+		
 		if(hits!=null) {
 			addBreak();
 			add(getResultSetInfo(hits));
@@ -307,7 +309,7 @@ public class WebSearcher extends Block {
 
 			int row = 1;
 			int row2 = 1;
-
+			
 			while (hits.hasNextInSet()) {
 				WebSearchHit hit = hits.next();
 				//String bgColor = (hit.getRank()%2==0)?"#BBBBBB":"#CDCDCD";
@@ -342,6 +344,7 @@ public class WebSearcher extends Block {
 				String contents = hit.getContents(this.queryString); //could be heavy....
 
 				if (contents != null) {
+					
 					contents = "..." + contents + "...";
 					Text contentsText = (Text) this.contentTextProto.clone();
 					contentsText.setText(contents);
