@@ -86,6 +86,7 @@ public class WebSearchBundleStarter implements IWBundleStartable, ActionListener
 		this.timer.addActionListener(this);
 		//Starts the thread while waiting for 10 mins. before the idegaWebApp
 		// starts up.
+//		TODO: clear search results cache when indexed
 		this.timer.start(10 * 60 * 1000);
 	}
 
