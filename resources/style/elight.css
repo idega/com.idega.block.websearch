@@ -1,0 +1,35 @@
+#elightInput {
+	margin: 3px;
+}
+
+#elightInput > div {
+	z-index: 11;
+	position: absolute;
+	left: 40px;
+	top: 10px;
+	display: inline;
+}
+
+#elightSearchInput {
+	width: 150px;
+	border-style: solid;
+	border-color: black;
+	background-color: #FFEBF1;
+}
+
+#elightOutput > div {
+	z-index: 10;
+	position: absolute;
+	left: 40px;
+	top: 33px;
+	display: inline;
+}
+
+#elightResults {
+	background: #FFF9FA;
+	border: 1px solid black;
+	height: 300px;
+	width: 300px;
+	border-style: solid;
+	padding: 2px;
+}
