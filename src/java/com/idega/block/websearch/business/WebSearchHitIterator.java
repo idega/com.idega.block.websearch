@@ -140,4 +140,8 @@ public final class WebSearchHitIterator {
 		}
 
 	}
+	
+	public void resetPosition() {
+		position = 0;
+	}
 }
