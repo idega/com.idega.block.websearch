@@ -295,9 +295,9 @@ public class WebSearcher extends Block {
 			
 		}
 		
-		hits.resetPosition();
-		
 		if(hits!=null) {
+			
+			hits.resetPosition();
 			addBreak();
 			add(getResultSetInfo(hits));
 			addBreak();
