@@ -1,5 +1,5 @@
 /*
- * $Id: WebCrawlerSearchPlugin.java,v 1.6 2007/06/07 15:00:35 civilis Exp $
+ * $Id: WebCrawlerSearchPlugin.java,v 1.7 2007/06/13 11:59:36 civilis Exp $
  * Created on Jan 17, 2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -31,12 +31,12 @@ import com.idega.presentation.IWContext;
 
 /**
  * 
- *  Last modified: $Date: 2007/06/07 15:00:35 $ by $Author: civilis $
+ *  Last modified: $Date: 2007/06/13 11:59:36 $ by $Author: civilis $
  * This class implements the Searchplugin interface and can therefore be used in a Search block (com.idega.core.search)<br>
  * for searching the websites that are crawled and indexed by the websearch site crawler.
  * To use it simply register this class as a iw.searchable component in a bundle.
  * @author <a href="mailto:eiki@idega.com">Eirikur S. Hrafnsson</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class WebCrawlerSearchPlugin implements SearchPlugin {
 
@@ -187,4 +187,14 @@ public class WebCrawlerSearchPlugin implements SearchPlugin {
 		return null;
 	}
 	
+	
+	/*protected Map<String, WebSearchHitIterator> getHitIteratorCacheMap() {
+	
+	if(iwcm2 == null)
+		iwcm2 = IWCacheManager2.getInstance(IWMainApplication.getDefaultIWMainApplication());
+	
+	//	TODO: is this map thread safe?
+	//	if not @see   Map m = Collections.synchronizedMap(new HashMap()); at http://java.sun.com/j2se/1.4.2/docs/api/java/util/Collections.html#synchronizedMap(java.util.Map)
+		return (Map<String, WebSearchHitIterator>)iwcm2.getCache(hit_iterator_cache);
+	}*/
 }
