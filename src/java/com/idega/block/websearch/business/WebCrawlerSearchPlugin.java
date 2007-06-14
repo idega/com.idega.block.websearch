@@ -1,5 +1,5 @@
 /*
- * $Id: WebCrawlerSearchPlugin.java,v 1.7 2007/06/13 11:59:36 civilis Exp $
+ * $Id: WebCrawlerSearchPlugin.java,v 1.8 2007/06/14 18:58:04 civilis Exp $
  * Created on Jan 17, 2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -31,12 +31,12 @@ import com.idega.presentation.IWContext;
 
 /**
  * 
- *  Last modified: $Date: 2007/06/13 11:59:36 $ by $Author: civilis $
+ *  Last modified: $Date: 2007/06/14 18:58:04 $ by $Author: civilis $
  * This class implements the Searchplugin interface and can therefore be used in a Search block (com.idega.core.search)<br>
  * for searching the websites that are crawled and indexed by the websearch site crawler.
  * To use it simply register this class as a iw.searchable component in a bundle.
  * @author <a href="mailto:eiki@idega.com">Eirikur S. Hrafnsson</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public class WebCrawlerSearchPlugin implements SearchPlugin {
 
@@ -169,6 +169,11 @@ public class WebCrawlerSearchPlugin implements SearchPlugin {
 	public String getSearchName() {
 		IWBundle bundle = this.iwma.getBundle(IW_BUNDLE_IDENTIFIER);
 		return bundle.getResourceBundle(IWContext.getInstance()).getLocalizedString(SEARCH_NAME_LOCALIZABLE_KEY,"Pages");
+	}
+	
+	public String getSearchIdentifier() {
+		
+		return iwma.getBundle(IW_BUNDLE_IDENTIFIER).getComponentName(this.getClass());
 	}
 
 	/*
