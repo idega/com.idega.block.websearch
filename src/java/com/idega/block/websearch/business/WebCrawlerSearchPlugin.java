@@ -1,5 +1,5 @@
 /*
- * $Id: WebCrawlerSearchPlugin.java,v 1.8 2007/06/14 18:58:04 civilis Exp $
+ * $Id: WebCrawlerSearchPlugin.java,v 1.9 2007/07/02 16:16:07 civilis Exp $
  * Created on Jan 17, 2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -31,12 +31,12 @@ import com.idega.presentation.IWContext;
 
 /**
  * 
- *  Last modified: $Date: 2007/06/14 18:58:04 $ by $Author: civilis $
+ *  Last modified: $Date: 2007/07/02 16:16:07 $ by $Author: civilis $
  * This class implements the Searchplugin interface and can therefore be used in a Search block (com.idega.core.search)<br>
  * for searching the websites that are crawled and indexed by the websearch site crawler.
  * To use it simply register this class as a iw.searchable component in a bundle.
  * @author <a href="mailto:eiki@idega.com">Eirikur S. Hrafnsson</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public class WebCrawlerSearchPlugin implements SearchPlugin {
 
@@ -202,4 +202,9 @@ public class WebCrawlerSearchPlugin implements SearchPlugin {
 	//	if not @see   Map m = Collections.synchronizedMap(new HashMap()); at http://java.sun.com/j2se/1.4.2/docs/api/java/util/Collections.html#synchronizedMap(java.util.Map)
 		return (Map<String, WebSearchHitIterator>)iwcm2.getCache(hit_iterator_cache);
 	}*/
+	
+	public String getResultImgByResultURI(String result_uri) {
+		
+		return iwma.getBundle(IW_BUNDLE_IDENTIFIER).getImageURI("images/16px-Crystal_Clear_mimetype_html.png");
+	}
 }
