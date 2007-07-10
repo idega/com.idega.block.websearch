@@ -58,7 +58,7 @@ public final class WebSearchManager {
     	return indexes;
     }
     
-    private static final String slide_path_to_cfg = "/files/cfg/websearch/";
+    private static final String slide_path_to_cfg = "/files/cms/websearch/";
     private static final String slide_cfg_file_name = "websearch.xml";
     
     private InputStream resolveCfg() throws IOException {
