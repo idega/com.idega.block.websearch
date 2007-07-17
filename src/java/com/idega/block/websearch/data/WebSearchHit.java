@@ -129,6 +129,10 @@ public final class WebSearchHit {
 //		either here, or when parsing html/xml
 
 		if (contents != null) {
+			
+			if(queryString.endsWith("*"))
+				queryString = queryString.substring(0, queryString.length()-1);
+			
 			StringTokenizer tokens = new StringTokenizer(queryString);
 			int length = contents.length();
 			int maxLength = 100;
