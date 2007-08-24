@@ -1,5 +1,5 @@
 /*
- * $Id: WebCrawlerSearchPlugin.java,v 1.9 2007/07/02 16:16:07 civilis Exp $
+ * $Id: WebCrawlerSearchPlugin.java,v 1.10 2007/08/24 10:23:00 civilis Exp $
  * Created on Jan 17, 2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -31,12 +31,12 @@ import com.idega.presentation.IWContext;
 
 /**
  * 
- *  Last modified: $Date: 2007/07/02 16:16:07 $ by $Author: civilis $
+ *  Last modified: $Date: 2007/08/24 10:23:00 $ by $Author: civilis $
  * This class implements the Searchplugin interface and can therefore be used in a Search block (com.idega.core.search)<br>
  * for searching the websites that are crawled and indexed by the websearch site crawler.
  * To use it simply register this class as a iw.searchable component in a bundle.
  * @author <a href="mailto:eiki@idega.com">Eirikur S. Hrafnsson</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public class WebCrawlerSearchPlugin implements SearchPlugin {
 
@@ -97,6 +97,18 @@ public class WebCrawlerSearchPlugin implements SearchPlugin {
 		IWBundle bundle = this.iwma.getBundle(IW_BUNDLE_IDENTIFIER);
 		IWResourceBundle iwrb =  bundle.getResourceBundle(IWContext.getInstance());
 		String queryString = ((SimpleSearchQuery)searchQuery).getSimpleSearchQuery();
+		
+		if(queryString != null) {
+			
+//			TODO: this is temporary. Implement searcher, so it looks for *<string>* by default
+			
+			if(!queryString.endsWith("*") && !queryString.endsWith("?"))
+				queryString = queryString+"*";
+			
+			Object paramKey = searchQuery.getSearchParameters().keySet().iterator().next();
+			searchQuery.getSearchParameters().put(paramKey, queryString);
+		}
+		
 		List results = new ArrayList();
 		BasicSearch search = new BasicSearch();
 		search.setSearchName(getSearchName());
