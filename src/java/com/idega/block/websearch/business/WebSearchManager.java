@@ -50,7 +50,7 @@ public final class WebSearchManager {
     	return me;
 	}
     
-    private Map<String, WebSearchIndex> getIndexes() throws IOException {
+    private synchronized Map<String, WebSearchIndex> getIndexes() throws IOException {
     	
     	if(indexes == null)
     		parseConfigXML(resolveCfg());
