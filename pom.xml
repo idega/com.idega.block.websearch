@@ -11,7 +11,7 @@
   <groupId>com.idega.block.addon</groupId>
   <name>idegaWeb Websearch Block</name>
   <artifactId>com.idega.block.websearch</artifactId>
-  <version>4.0.0</version>
+  <version>4.0.1-SNAPSHOT</version>
   <inceptionYear>2000</inceptionYear>
   <description>idega pages searcher</description>
   <scm>
@@ -21,7 +21,6 @@
      -->
     <connection>scm:cvs:ext:civilis@code.idega.com:/idega/cvs:com.idega.block.addon/com.idega.block.websearch/</connection>
     <developerConnection>scm:cvs:ext:civilis@code.idega.com:/idega/cvs:com.idega.block.addon/com.idega.block.websearch/</developerConnection>
-    <tag>com_idega_block_addon_super-4_0_0</tag>
   </scm>
 
   <developers>
