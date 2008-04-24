@@ -1,5 +1,5 @@
 /*
- * $Id: WebCrawlerSearchPlugin.java,v 1.11 2008/02/20 00:03:07 eiki Exp $
+ * $Id: WebCrawlerSearchPlugin.java,v 1.12 2008/04/24 23:35:37 laddi Exp $
  * Created on Jan 17, 2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -9,11 +9,10 @@
  */
 package com.idega.block.websearch.business;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.apache.lucene.queryParser.ParseException;
+
 import com.idega.block.websearch.data.WebSearchHit;
 import com.idega.block.websearch.data.WebSearchIndex;
 import com.idega.core.search.business.Search;
@@ -31,12 +30,12 @@ import com.idega.presentation.IWContext;
 
 /**
  * 
- *  Last modified: $Date: 2008/02/20 00:03:07 $ by $Author: eiki $
+ *  Last modified: $Date: 2008/04/24 23:35:37 $ by $Author: laddi $
  * This class implements the Searchplugin interface and can therefore be used in a Search block (com.idega.core.search)<br>
  * for searching the websites that are crawled and indexed by the websearch site crawler.
  * To use it simply register this class as a iw.searchable component in a bundle.
  * @author <a href="mailto:eiki@idega.com">Eirikur S. Hrafnsson</a>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public class WebCrawlerSearchPlugin implements SearchPlugin {
 

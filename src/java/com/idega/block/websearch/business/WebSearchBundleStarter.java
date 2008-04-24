@@ -21,7 +21,6 @@ import com.idega.block.websearch.data.WebSearchIndex;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWBundleStartable;
 import com.idega.util.EventTimer;
-import com.idega.util.FileUtil;
 
 public class WebSearchBundleStarter implements IWBundleStartable, ActionListener {
 
