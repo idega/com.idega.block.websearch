@@ -1,0 +1,21 @@
+<html
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:c="http://xmlns.idega.com/com.idega.core"
+		xmlns:a="http://xmlns.idega.com/is.idega.idegaweb.egov.application"
+>
+<ui:component>
+	<div id="cse"></div>
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+	  google.load('search', '1', {language : 'en'});
+	  google.setOnLoadCallback(function() {
+	    var customSearchControl = new google.search.CustomSearchControl('#{googleBean.apiKey}');
+	    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+	    customSearchControl.draw('cse');
+	    customSearchControl.setLinkTarget(google.search.Search.LINK_TARGET_SELF);
+	  }, true);
+	</script>
+	<link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
+</ui:component>
+</html>
