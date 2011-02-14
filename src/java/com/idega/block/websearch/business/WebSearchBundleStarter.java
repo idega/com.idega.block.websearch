@@ -71,7 +71,7 @@ public class WebSearchBundleStarter implements IWBundleStartable, ActionListener
 
 		//WebSearchManager.getInstance().parseConfigXML(null);
 		
-		String parameters = bundle.getProperty(IGNORE_PARAMETERS, "");
+		/*String parameters = bundle.getProperty(IGNORE_PARAMETERS, "");
 		if (parameters != null && parameters.length() > 0) {
 			ignoreParameters = new ArrayList();
 			
@@ -86,7 +86,7 @@ public class WebSearchBundleStarter implements IWBundleStartable, ActionListener
 		//Starts the thread while waiting for 10 mins. before the idegaWebApp
 		// starts up.
 //		TODO: clear search results cache when indexed
-		this.timer.start(10 * 60 * 1000);
+		this.timer.start(10 * 60 * 1000);*/
 	}
 
 	public String getBundleIdentifier() {
@@ -95,7 +95,7 @@ public class WebSearchBundleStarter implements IWBundleStartable, ActionListener
 
 	public void actionPerformed(ActionEvent event) {
 		//THIS ASSUMES THERE IS ONLY ONE INDEX AND SCOPE
-		if (event.getActionCommand().equalsIgnoreCase(IW_WEB_SEARCHER)) {
+		if (false && event.getActionCommand().equalsIgnoreCase(IW_WEB_SEARCHER)) {
 			WebSearchIndex index = WebSearchManager.getInstance().getIndex("main");
 			if (index != null) {
 				if (!index.getScope()[0].startsWith("http://localhost")) {//if true it needs to be indexed manually
