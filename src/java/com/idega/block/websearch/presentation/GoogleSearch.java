@@ -19,12 +19,12 @@ public class GoogleSearch extends IWBaseComponent {
 		IWContext iwc = IWContext.getIWContext(context);
 		IWBundle iwb = iwc.getApplicationContext().getIWMainApplication().getBundle(getBundleIdentifier());
 		String apiKey = iwc.getApplicationSettings().getProperty(GOOGLE_API_KEY, "");
-		
+
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gsc.css"));
 
 		GoogleBean appBean = getBeanInstance("googleBean");
 		appBean.setApiKey(apiKey);
-		
+
 		FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
 		facelet.setFaceletURI(iwb.getFaceletURI("gsc/gsc-search.xhtml"));
 		add(facelet);

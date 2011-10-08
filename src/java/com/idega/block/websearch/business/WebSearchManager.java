@@ -14,12 +14,11 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
 import com.idega.block.websearch.data.WebSearchIndex;
-import com.idega.business.IBOLookup;
-import com.idega.business.IBOLookupException;
 import com.idega.idegaweb.IWMainApplication;
-import com.idega.slide.business.IWSlideService;
-import com.idega.slide.util.WebdavExtendedResource;
+import com.idega.repository.RepositoryService;
+import com.idega.repository.bean.RepositoryItem;
 import com.idega.util.IOUtil;
+import com.idega.util.expression.ELUtil;
 
 /**
  * <p><code>WebSearchManager</code> Manages WebSearchIndexes.
@@ -60,16 +59,20 @@ public final class WebSearchManager {
     private static final String slide_cfg_file_name = "websearch.xml";
 
     private InputStream resolveCfg() throws IOException {
-    	IWSlideService service = getIWSlideService();
-    	WebdavExtendedResource resource = service.getWebdavExtendedResource(slide_path_to_cfg+slide_cfg_file_name, service.getRootUserCredentials());
+    	try {
+	    	RepositoryService repository = ELUtil.getInstance().getBean(RepositoryService.BEAN_NAME);
+	    	RepositoryItem resource = repository.getRepositoryItemAsRootUser(slide_path_to_cfg+slide_cfg_file_name);
 
-    	if (resource != null && resource.exists()) {
-    		return resource.getMethodData();
-    	} else {
-    		InputStream configStream =  IOUtil.getStreamFromJar(WebSearchBundleStarter.IW_BUNDLE_IDENTIFIER, "resources/websearch.xml");
-    		service.uploadFileAndCreateFoldersFromStringAsRoot(slide_path_to_cfg, slide_cfg_file_name, configStream, "text/xml", false);
+	    	if (resource != null && resource.exists()) {
+	    		return resource.getInputStream();
+	    	} else {
+	    		InputStream configStream =  IOUtil.getStreamFromJar(WebSearchBundleStarter.IW_BUNDLE_IDENTIFIER, "resources/websearch.xml");
+	    		repository.uploadFileAndCreateFoldersFromStringAsRoot(slide_path_to_cfg, slide_cfg_file_name, configStream, "text/xml");
 
-    		return configStream;
+	    		return configStream;
+	    	}
+    	} catch (Exception e) {
+    		throw new IOException(e);
     	}
     }
 
@@ -162,16 +165,6 @@ public final class WebSearchManager {
             indexes.put("main", webSearchIndex);
 		} finally {
 			IOUtil.close(xml_is);
-		}
-	}
-
-	protected IWSlideService getIWSlideService() throws IBOLookupException {
-
-		try {
-			return (IWSlideService) IBOLookup.getServiceInstance(IWMainApplication.getDefaultIWApplicationContext(), IWSlideService.class);
-		} catch (IBOLookupException e) {
-			logger.log(Level.SEVERE, "Error getting IWSlideService");
-			throw e;
 		}
 	}
 }
