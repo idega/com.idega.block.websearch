@@ -14,6 +14,7 @@ import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.RangeFilter;
 import org.apache.lucene.search.Searcher;
+
 import com.idega.block.websearch.data.IndexReaderCache;
 import com.idega.block.websearch.data.WebSearchIndex;
 
@@ -73,7 +74,7 @@ public final class WebSearcher {
 		IndexReaderCache reader = new IndexReaderCache();//can't this be
 														 // static?
 		this.searcher = new IndexSearcher(reader.getReader(indexPath));
-		Analyzer analyzer = new StopAnalyzer();
+		Analyzer analyzer = new StopAnalyzer();//
 		if (this.phraseSearch) {
 			input = "\"" + input + "\"";
 		}

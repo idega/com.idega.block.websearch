@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.store.Directory;
 
 /**
  Keep a cache of open IndexReader's, so that an index does not have to opened
