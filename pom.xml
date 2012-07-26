@@ -13,14 +13,6 @@
   <name>idegaWeb Websearch Block</name>
   <inceptionYear>2000</inceptionYear>
   <description>idega pages searcher</description>
-  <scm>
-    <!--
-    <connection>scm:cvs:ext:${user.name}@code.idega.com:/idega/cvs:${groupId}/${artifactId}/</connection>
-    <developerConnection>scm:cvs:ext:${user.name}@code.idega.com:/idega/cvs:${groupId}/${artifactId}/</developerConnection> 
-     -->
-    <connection>scm:cvs:ext:idegaweb@code.idega.com:/idega/cvs:com.idega.block.addon/com.idega.block.websearch/</connection>
-    <developerConnection>scm:cvs:ext:idegaweb@code.idega.com:/idega/cvs:com.idega.block.addon/com.idega.block.websearch/</developerConnection>
-  </scm>
 
   <developers>
     <developer>
@@ -73,7 +65,11 @@
       <groupId>com.idega.block.platform</groupId>
       <artifactId>com.idega.faces</artifactId>
     </dependency>
-	
+	<dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-core</artifactId>
+      <version>${lucene-lucene-core-version}</version>
+    </dependency>
   </dependencies>
   <properties />
 </project>
