@@ -9,9 +9,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
+import org.jdom2.Document;
+import org.jdom2.Element;
 
 import com.idega.block.websearch.data.WebSearchIndex;
 import com.idega.idegaweb.IWMainApplication;
@@ -19,6 +18,7 @@ import com.idega.repository.RepositoryService;
 import com.idega.repository.bean.RepositoryItem;
 import com.idega.util.IOUtil;
 import com.idega.util.expression.ELUtil;
+import com.idega.util.xml.XmlUtil;
 
 /**
  * <p><code>WebSearchManager</code> Manages WebSearchIndexes.
@@ -118,8 +118,7 @@ public final class WebSearchManager {
 		String app_real_path = iw_app.getApplicationRealPath();
 
 		try {
-			SAXBuilder builder = new SAXBuilder(false);
-			Document doc = builder.build(xml_is);
+			Document doc = XmlUtil.getJDOMXMLDocument(xml_is);
 			Element root = doc.getRootElement();
 
 			// Get indexes
