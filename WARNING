@@ -1,0 +1,1 @@
+This will not work on PLATFORM 5 with jackrabbit (uses legacy lucene version, align with proper lucene version).
