@@ -209,6 +209,18 @@ public class WebCrawlerSearchPlugin implements SearchPlugin {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public Collection<UIComponent> getFileCreationDates(SearchResult result, IWResourceBundle iwrb) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String getSearchDateColumnName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 	/*protected Map<String, WebSearchHitIterator> getHitIteratorCacheMap() {
